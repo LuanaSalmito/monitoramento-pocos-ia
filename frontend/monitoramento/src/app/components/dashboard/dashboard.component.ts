@@ -8,11 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
-  dashboardTitle: string = 'Monitoramento de Poços';
+  dashboardTitle: string = 'Monitoramento de Poços de Petróleo';
   currentDate: string = '';
-  waterLevel: number = 20;
-  sensorStatus: number = 85;
-  alertCount: number = 5;
+  waterLevel: number = 20; // Nível de água no poço
+  sensorStatus: number = 85; // Status do sensor
+  alertCount: number = 5; // Contagem de alertas
+  productionStatus: string = 'Em Produção'; // Status de produção
+  productionRate: number = 5000; // Taxa de produção do poço (barris/dia)
+  
   sensors: any[] = [
     { name: 'Sensor 1', status: 'Ativo', lastChecked: '2024-11-20 15:30' },
     { name: 'Sensor 2', status: 'Inativo', lastChecked: '2024-11-20 14:00' },
@@ -50,6 +53,7 @@ export class DashboardComponent implements OnInit {
     this.waterLevel = this.getRandomInt(10, 30);
     this.sensorStatus = this.getRandomInt(70, 100);
     this.alertCount = this.getRandomInt(0, 10);
+    this.productionRate = this.getRandomInt(4000, 6000); // Simula a produção de petróleo
   }
 
   getRandomInt(min: number, max: number): number {

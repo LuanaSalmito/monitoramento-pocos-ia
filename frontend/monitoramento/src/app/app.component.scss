@@ -1,11 +1,17 @@
-:host {
-    display: block;
-    padding: 20px;
-    font-family: Arial, sans-serif;
-  }
+.app-container {
+    display: flex;
   
-  h1 {
-    color: #4CAF50;
-    font-size: 2rem;
+    .main-content {
+      flex: 1;
+      margin-left: 250px; 
+      display: flex;
+      flex-direction: column;
+  
+      .content {
+        flex: 1;
+        padding: 1rem;
+        background-color: #f8f9fa; 
+      }
+    }
   }
   

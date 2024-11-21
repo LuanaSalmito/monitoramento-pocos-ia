@@ -1,18 +1,17 @@
-<div class="container-fluid">
-  <!-- Navbar -->
-  <app-header></app-header>
+<div class="app-container">
+  <!-- Sidebar -->
+  <app-sidebar></app-sidebar>
 
-  <div class="row">
-    <!-- Sidebar -->
-    <div class="col-md-3">
-      <app-sidebar></app-sidebar>
-    </div>
+  <!-- Main Content -->
+  <div class="main-content">
+    <!-- Header -->
+    <app-header></app-header>
 
-    <!-- Main Content -->
-    <div class="col-md-9">
+    <!-- Dynamic Content -->
+    <div class="content">
       <router-outlet></router-outlet>
     </div>
+
+  
   </div>
 </div>
-
-<app-footer></app-footer>
