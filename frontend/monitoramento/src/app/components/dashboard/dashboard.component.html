@@ -1,0 +1,75 @@
+<div class="dashboard">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header">
+            <h3>{{ dashboardTitle }}</h3>
+            <p class="date">{{ currentDate }}</p>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-4">
+                <div class="card">
+                  <div class="card-body">
+                    <h5 class="card-title">Nível de Água</h5>
+                    <p>{{ waterLevel }} m</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="card">
+                  <div class="card-body">
+                    <h5 class="card-title">Status dos Sensores</h5>
+                    <p>{{ sensorStatus }}%</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="card">
+                  <div class="card-body">
+                    <h5 class="card-title">Alertas Pendentes</h5>
+                    <p class="alert-count">{{ alertCount }} alertas</p>
+                    <button class="btn btn-primary" (click)="handleAlerts()">Ver Alertas</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card mt-4">
+              <div class="card-header">
+                <h5>Sensores</h5>
+              </div>
+              <div class="card-body">
+                <ul class="list-group">
+                  <li *ngFor="let sensor of sensors" class="list-group-item">
+                    <strong>{{ sensor.name }}</strong> - 
+                    <span [ngClass]="sensor.status === 'Ativo' ? 'active' : 'inactive'">{{ sensor.status }}</span> 
+                    <br />
+                    Última verificação: {{ sensor.lastChecked }}
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="card mt-4">
+              <div class="card-header">
+                <h5>Alertas Detalhados</h5>
+              </div>
+              <div class="card-body">
+                <ul class="list-group">
+                  <li *ngFor="let alert of detailedAlerts" class="list-group-item">
+                    <strong>{{ alert.description }}</strong>
+                    <span class="badge" [ngClass]="alert.resolved ? 'badge-success' : 'badge-warning'">
+                      {{ alert.resolved ? 'Resolvido' : 'Pendente' }}
+                    </span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
