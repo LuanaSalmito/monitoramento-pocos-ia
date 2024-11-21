@@ -1,65 +1,69 @@
-<div class="dashboard">
-  <div class="header">
-    <h1>{{ dashboardTitle }}</h1>
-    <span>{{ currentDate }}</span>
-  </div>
-  <div class="card-container">
-    <!-- Nível de Água -->
-    <div class="card">
-      <h3>Nível de Água</h3>
-      <div class="data">
-        <p>{{ waterLevel }} m</p>
-      </div>
+<div class="dashboard-container">
+  
+  <div class="dashboard-content">
+    <div class="header">
+      <h1>{{ dashboardTitle }}</h1>
+      <span>{{ currentDate }}</span>
     </div>
 
-    <!-- Status do Sensor -->
-    <div class="card">
-      <h3>Status do Sensor</h3>
-      <div class="data">
-        <p>{{ sensorStatus }}%</p>
+    
+    <div class="card-container">
+  
+      <div class="card shadow-sm">
+        <h3>Nível de Água</h3>
+        <div class="data">
+          <p>{{ waterLevel }} m</p>
+        </div>
       </div>
-    </div>
 
-    <!-- Produção -->
-    <div class="card">
-      <h3>Taxa de Produção</h3>
-      <div class="data">
-        <p>{{ productionRate }} Barris/dia</p>
-        <p>Status: {{ productionStatus }}</p>
+      <div class="card shadow-sm">
+        <h3>Status do Sensor</h3>
+        <div class="data">
+          <p>{{ sensorStatus }}%</p>
+        </div>
       </div>
-    </div>
 
-    <!-- Alertas -->
-    <div class="card">
-      <h3>Alertas</h3>
-      <div class="data">
-        <p>{{ alertCount }} Alertas pendentes</p>
-        <button (click)="handleAlerts()">Ver Detalhes</button>
+      <div class="card shadow-sm">
+        <h3>Taxa de Produção</h3>
+        <div class="data">
+          <p>{{ productionRate }} Barris/dia</p>
+          <p>Status: {{ productionStatus }}</p>
+        </div>
       </div>
-    </div>
 
-    <!-- Sensores -->
-    <div class="card">
-      <h3>Sensores</h3>
-      <div class="sensor-list">
-        <ul>
-          <li *ngFor="let sensor of sensors">
-            <strong>{{ sensor.name }}</strong>: {{ sensor.status }} (Última verificação: {{ sensor.lastChecked }})
-          </li>
-        </ul>
+      <div class="card shadow-sm">
+        <h3>Alertas</h3>
+        <div class="data">
+          <p>{{ alertCount }} Alertas pendentes</p>
+          <button (click)="handleAlerts()">Ver Detalhes</button>
+        </div>
       </div>
-    </div>
 
-    <!-- Alertas Detalhados -->
-    <div class="card">
-      <h3>Alertas Detalhados</h3>
-      <div class="detailed-alerts">
-        <ul>
-          <li *ngFor="let alert of detailedAlerts">
-            <p>{{ alert.description }} - <span>Resolvido: {{ alert.resolved ? 'Sim' : 'Não' }}</span></p>
-          </li>
-        </ul>
+      <div class="card shadow-sm">
+        <h3>Sensores</h3>
+        <div class="sensor-list">
+          <ul>
+            <li *ngFor="let sensor of sensors">
+              <strong>{{ sensor.name }}</strong>: {{ sensor.status }}
+              (Última verificação: {{ sensor.lastChecked }})
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="card shadow-sm">
+        <h3>Alertas Detalhados</h3>
+        <div class="detailed-alerts">
+          <ul>
+            <li *ngFor="let alert of detailedAlerts">
+              <p>
+                {{ alert.description }} -
+                <span>Resolvido: {{ alert.resolved ? 'Sim' : 'Não' }}</span>
+              </p>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
+    
   </div>
 </div>
