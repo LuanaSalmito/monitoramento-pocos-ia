@@ -1,5 +1,5 @@
 import { Component, AfterViewInit } from '@angular/core';
-import { Chart } from 'chart.js';
+import ApexCharts from 'apexcharts';
 
 @Component({
   selector: 'app-chart',
@@ -7,17 +7,28 @@ import { Chart } from 'chart.js';
   styleUrls: ['./chart.component.scss']
 })
 export class ChartComponent implements AfterViewInit {
-  waterLevelChart: Chart | undefined;
-  sensorStatusChart: Chart | undefined;
-  productionTrendChart: Chart | undefined;
-  sensorComparisonChart: Chart | undefined;
-
   lastUpdated = {
     waterLevel: '15 minutos atrás',
     sensorStatus: '10 minutos atrás',
     productionTrend: '1 hora atrás',
     sensorComparison: '2 horas atrás',
-  };
+  };  
+  dashboardTitle = 'Dashboard de Monitoramento';
+  currentDate = new Date().toLocaleDateString('pt-BR');
+  productionRate = 1200;
+  productionStatus = 'Normal';
+  alertCount = 5;
+
+  sensors = [
+    { name: 'Sensor 1', status: 'OK', lastChecked: '5 minutos atrás' },
+    { name: 'Sensor 2', status: 'Manutenção', lastChecked: '30 minutos atrás' },
+    { name: 'Sensor 3', status: 'Falha', lastChecked: '1 hora atrás' }
+  ];
+
+  detailedAlerts = [
+    { description: 'Pressão alta no sensor 3', resolved: false },
+    { description: 'Temperatura fora do limite no sensor 2', resolved: true }
+  ];
 
   ngAfterViewInit(): void {
     this.initializeCharts();
@@ -31,131 +42,105 @@ export class ChartComponent implements AfterViewInit {
   }
 
   initializeWaterLevelChart(): void {
-    this.waterLevelChart = new Chart('waterLevelCanvas', {
-      type: 'line',
-      data: {
-        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
-        datasets: [
-          {
-            label: 'Nível de Água (m)',
-            data: [20, 18, 22, 19, 21],
-            borderColor: '#0066cc',
-            fill: false,
-            tension: 0.4,
-          },
-        ],
+    const options = {
+      chart: {
+        type: 'line',
+        height: 350
       },
-      options: {
-        responsive: true,
-        plugins: {
-          legend: { display: true, position: 'top' },
-        },
+      series: [
+        {
+          name: 'Nível de Água (m)',
+          data: [20, 18, 22, 19, 21]
+        }
+      ],
+      xaxis: {
+        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May']
       },
-    });
+      stroke: {
+        curve: 'smooth'
+      },
+      title: {
+        text: 'Nível de Água'
+      }
+    };
+
+    const chart = new ApexCharts(document.querySelector('#waterLevelChart'), options);
+    chart.render();
   }
 
   initializeSensorStatusChart(): void {
-    this.sensorStatusChart = new Chart('sensorStatusCanvas', {
-      type: 'bar',
-      data: {
-        labels: ['Sensor 1', 'Sensor 2', 'Sensor 3'],
-        datasets: [
-          {
-            label: 'Status (%)',
-            data: [90, 75, 85],
-            backgroundColor: ['#0066cc', '#003366', '#ffffff'],
-          },
-        ],
+    const options = {
+      chart: {
+        type: 'bar',
+        height: 350
       },
-      options: {
-        responsive: true,
-        plugins: {
-          legend: { display: true, position: 'top' },
-        },
+      series: [
+        {
+          name: 'Status (%)',
+          data: [90, 75, 85]
+        }
+      ],
+      xaxis: {
+        categories: ['Sensor 1', 'Sensor 2', 'Sensor 3']
       },
-    });
+      colors: ['#0066cc', '#003366', '#ffffff'],
+      title: {
+        text: 'Status dos Sensores'
+      }
+    };
+
+    const chart = new ApexCharts(document.querySelector('#sensorStatusChart'), options);
+    chart.render();
   }
 
   initializeProductionTrendChart(): void {
-    this.productionTrendChart = new Chart('productionTrendCanvas', {
-      type: 'line',
-      data: {
-        labels: ['Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5'],
-        datasets: [
-          {
-            label: 'Produção (barris)',
-            data: [150, 160, 155, 170, 165],
-            borderColor: '#00cc66',
-            fill: false,
-            tension: 0.3,
-          },
-        ],
+    const options = {
+      chart: {
+        type: 'line',
+        height: 350
       },
-      options: {
-        responsive: true,
-        plugins: {
-          legend: { display: true, position: 'top' },
-        },
+      series: [
+        {
+          name: 'Produção (barris)',
+          data: [150, 160, 155, 170, 165]
+        }
+      ],
+      xaxis: {
+        categories: ['Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5']
       },
-    });
+      stroke: {
+        curve: 'smooth'
+      },
+      title: {
+        text: 'Tendência de Produção'
+      }
+    };
+
+    const chart = new ApexCharts(document.querySelector('#productionTrendChart'), options);
+    chart.render();
   }
 
   initializeSensorComparisonChart(): void {
-    this.sensorComparisonChart = new Chart('sensorComparisonCanvas', {
-      type: 'radar',
-      data: {
-        labels: ['Sensor 1', 'Sensor 2', 'Sensor 3', 'Sensor 4'],
-        datasets: [
-          {
-            label: 'Desempenho (%)',
-            data: [80, 85, 90, 75],
-            backgroundColor: 'rgba(0, 102, 204, 0.3)',
-            borderColor: '#0066cc',
-          },
-        ],
+    const options = {
+      chart: {
+        type: 'radar',
+        height: 350
       },
-      options: {
-        responsive: true,
-        plugins: {
-          legend: { display: true, position: 'top' },
-        },
-        scales: {
-          r: {
-            suggestedMin: 50,
-            suggestedMax: 100,
-          },
-        },
+      series: [
+        {
+          name: 'Desempenho (%)',
+          data: [80, 85, 90, 75]
+        }
+      ],
+      xaxis: {
+        categories: ['Sensor 1', 'Sensor 2', 'Sensor 3', 'Sensor 4']
       },
-    });
-  }
+      title: {
+        text: 'Comparação de Sensores'
+      }
+    };
 
-  refreshChart(chartType: string): void {
-    const now = new Date();
-    const updatedTime = `${now.getHours()}:${now.getMinutes()} (atualizado agora)`;
-
-    switch (chartType) {
-      case 'waterLevel':
-        this.waterLevelChart?.update();
-        this.lastUpdated.waterLevel = updatedTime;
-        break;
-
-      case 'sensorStatus':
-        this.sensorStatusChart?.update();
-        this.lastUpdated.sensorStatus = updatedTime;
-        break;
-
-      case 'productionTrend':
-        this.productionTrendChart?.update();
-        this.lastUpdated.productionTrend = updatedTime;
-        break;
-
-      case 'sensorComparison':
-        this.sensorComparisonChart?.update();
-        this.lastUpdated.sensorComparison = updatedTime;
-        break;
-
-      default:
-        break;
-    }
+    const chart = new ApexCharts(document.querySelector('#sensorComparisonChart'), options);
+    chart.render();
   }
 }
