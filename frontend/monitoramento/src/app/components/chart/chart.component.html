@@ -1,12 +1,37 @@
-<div class="container">
-  <div class="row">
-    <div class="col-md-6">
-      <h5>Nível de Água</h5>
-      <canvas id="waterLevelCanvas"></canvas>
+<div class="chart-container">
+  <div class="chart">
+    <h3 class="chart-title">Nível de Água</h3>
+    <canvas id="waterLevelCanvas"></canvas>
+    <div class="chart-footer">
+      <span>Última atualização: {{ lastUpdated.waterLevel }}</span>
+      <button class="refresh-button" (click)="refreshChart('waterLevel')">Atualizar</button>
     </div>
-    <div class="col-md-6">
-      <h5>Status dos Sensores</h5>
-      <canvas id="sensorStatusCanvas"></canvas>
+  </div>
+
+  <div class="chart">
+    <h3 class="chart-title">Status do Sensor</h3>
+    <canvas id="sensorStatusCanvas"></canvas>
+    <div class="chart-footer">
+      <span>Última verificação: {{ lastUpdated.sensorStatus }}</span>
+      <button class="refresh-button" (click)="refreshChart('sensorStatus')">Atualizar</button>
+    </div>
+  </div>
+
+  <div class="chart">
+    <h3 class="chart-title">Tendência de Produção</h3>
+    <canvas id="productionTrendCanvas"></canvas>
+    <div class="chart-footer">
+      <span>Última atualização: {{ lastUpdated.productionTrend }}</span>
+      <button class="refresh-button" (click)="refreshChart('productionTrend')">Atualizar</button>
+    </div>
+  </div>
+
+  <div class="chart">
+    <h3 class="chart-title">Comparação de Sensores</h3>
+    <canvas id="sensorComparisonCanvas"></canvas>
+    <div class="chart-footer">
+      <span>Última comparação: {{ lastUpdated.sensorComparison }}</span>
+      <button class="refresh-button" (click)="refreshChart('sensorComparison')">Atualizar</button>
     </div>
   </div>
 </div>
